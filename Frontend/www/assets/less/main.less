@@ -1,20 +1,156 @@
-@mainColor: blue;
+@mainColor: orange;
 
 @import "pizza/pizza-card";
 
-.upPole{
-  height: 100px;
-  background-color: black;
-  opacity: 0.5;
-  display: inline-block;
-  width: 100%;
+body {
+  background-color: rgba(255, 209, 130, 0.2);
+}
+
+.topPanel {
+  font-size: 15px; //Базовий розмір шрифту
+  height: 15%;
+  background: rgba(0, 0, 0, 0.7);
+  width: 80%;
   position: fixed;
-  z-index:2;
-  margin: 2px;
+  z-index: 2;
+  color: white;
+  top: 0;
 }
-.btn-signIn{
-  z-index: 3;
-  margin-left: 90%;
+
+.rightPanel {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  background-color: blueviolet;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  opacity: 0.5;
+}
+.bottomPanel{
+  font-size: 13px; //Базовий розмір шрифту
+  height: 20%;
+  background: white;
+  width: 80%;
+  text-align: center;
+  padding:2%;
+  color:#4C4C4C;
+
+}
+.different{
+  text-align: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  font-size: 20px;
+}
+label{
+  margin-right: 1%;
+}
+.label-default{
+  background-color: rgba(255, 209, 130, 0.1);
+  color: orange;
+}
+
+
+hr {
+  margin: 1%;
+}
+
+.number {
+  margin-right: 3%;
+}
+
+.ad247 {
+  margin-right: 3%;
+}
+
+.freeShipping {
+  margin-right: 3%;
+}
+
+.container {
   margin-top: 10%;
+  width: 75%;
+  height: 80%;
+  margin-left: 5%;
 }
-.container{}
+
+.topLabel {
+  float: left;
+  margin-left: 3%;
+  margin-right: 2%;
+  font-size: 20px;
+  width: 7%;
+  padding-top: 3%;
+  height: 100%;
+  text-align: center;
+  background-color: orange;
+  min-width: 5%;
+}
+//.pizza-card{
+//  position: relative;
+//}
+//.newLabel{
+//  position: absolute;
+//  top:-20px;
+//}
+//.popularLabel{
+//  position: absolute;
+//}
+
+.bottomLabel {
+  float: left;
+  background-color: orange;
+  margin-left: 3%;
+  font-size: 15px;
+  width: 6%;
+  height: 15%;
+  text-align: center;
+  position: fixed;
+  bottom: 0px;
+  color: white;
+  z-index: 2;
+  margin-bottom: 0px;
+}
+
+.all {
+  text-align: center;
+  font-size: 25px;
+  margin-top: 0%;
+}
+
+@media (max-width: 800px) {
+  .topPanel {
+    font-size: 15px; //Розмір для екранів менше 800px
+  }
+}
+
+@media (max-width: 400px) {
+  .topPanel {
+    font-size: 10px; //Розмір для екранів менше 400px
+  }
+}
+
+@button-color: red;
+@button-size: 24px;
+
+button {
+  float: right;
+  margin: 0.5%;
+}
+
+.right-panel {
+  button {
+    color: green;
+  }
+  .title {
+    font-size: 25px;
+    &.new {
+      color: red;
+    }
+  }
+}
+
+.container {
+  position: relative;
+}
