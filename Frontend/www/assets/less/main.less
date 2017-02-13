@@ -7,7 +7,7 @@ body {
 }
 
 .topPanel {
-  font-size: 15px; //Базовий розмір шрифту
+  font-size: 25px; //Базовий розмір шрифту
   height: 15%;
   background: rgba(0, 0, 0, 0.7);
   width: 80%;
@@ -15,45 +15,61 @@ body {
   z-index: 2;
   color: white;
   top: 0;
+
+  min-height: 110px;
 }
 
 .rightPanel {
   height: 100%;
   width: 20%;
   position: fixed;
-  background-color: blueviolet;
+  background-color: white;
+  border-left-color: rgba(255, 209, 130, 0.5);
+  border-left-style: outset;
   right: 0;
   top: 0;
   z-index: 2;
   opacity: 0.5;
 }
-.bottomPanel{
+
+.bottomPanel {
   font-size: 13px; //Базовий розмір шрифту
   height: 20%;
   background: white;
   width: 80%;
   text-align: center;
-  padding:2%;
-  color:#4C4C4C;
-
+  padding: 2%;
+  color: #4C4C4C;
+  position: relative;
+  min-height: inherit;
 }
-.different{
+
+.upTr {
+  position: absolute;
+  top: -27%;
+  left: 0;
+  width: 100%;
+  height: 30%;
+}
+
+.different {
   text-align: center;
   margin-top: 2%;
   margin-bottom: 2%;
   font-size: 20px;
 }
-label{
+
+label {
   margin-right: 1%;
 }
-.label-default{
+
+.label-default {
   background-color: rgba(255, 209, 130, 0.1);
   color: orange;
 }
 
-
 hr {
-  margin: 1%;
+  margin: 0.1%;
 }
 
 .number {
@@ -79,28 +95,39 @@ hr {
   float: left;
   margin-left: 3%;
   margin-right: 2%;
-  font-size: 20px;
+  font-size: 22px;
   width: 7%;
   padding-top: 3%;
   height: 100%;
   text-align: center;
-  background-color: orange;
-  min-width: 5%;
+  background-color: #e87b00;
+  position: relative;
+  min-width: inherit;
 }
-//.pizza-card{
-//  position: relative;
-//}
-//.newLabel{
-//  position: absolute;
-//  top:-20px;
-//}
-//.popularLabel{
-//  position: absolute;
-//}
+
+.downTr {
+  position: absolute;
+  top: 95%;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  transform: rotate(180deg);
+}
+
+.pizza-card{
+  position: relative;
+}
+.newLabel{
+  position: absolute;
+  top:-100px;
+}
+.popularLabel{
+  position: absolute;
+}
 
 .bottomLabel {
   float: left;
-  background-color: orange;
+  background-color: #e87b00;
   margin-left: 3%;
   font-size: 15px;
   width: 6%;
@@ -116,18 +143,54 @@ hr {
 .all {
   text-align: center;
   font-size: 25px;
-  margin-top: 0%;
+  margin-top: 2%;
 }
+
 
 @media (max-width: 800px) {
   .topPanel {
     font-size: 15px; //Розмір для екранів менше 800px
+    min-height: 100px;
   }
+
+  .topLabel {
+    font-size: 15px;
+    width: auto;
+    min-width: inherit;
+  }
+
+  .bottomLabel {
+    font-size: 15px;
+    width: auto;
+    min-width: inherit;
+  }
+
+  .ad247 {
+    display: none;
+  }
+
 }
 
 @media (max-width: 400px) {
   .topPanel {
     font-size: 10px; //Розмір для екранів менше 400px
+    min-height: 5%;
+    min-height: 50px;
+  }
+
+  .topLabel {
+    font-size: 15px;
+    width: auto;
+    min-width: inherit;
+  }
+
+  .bottomLabel {
+    font-size: 12px;
+    width: auto;
+    min-width: inherit;
+  }
+  .freeShipping{
+    display:none;
   }
 }
 
