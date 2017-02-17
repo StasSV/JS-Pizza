@@ -4,6 +4,7 @@
 
 body {
   background-color: rgba(253, 208, 125, 0.09);
+
 }
 
 .topPanel {
@@ -79,6 +80,7 @@ a {
 .boughtCard {
   border-style: outset;
   border-right: none;
+  border-bottom-width: 1px;
   background-color: white;
   font-size: 15px;
   position: relative;
@@ -99,6 +101,13 @@ a {
 .btn-default {
   border-radius: 50%;
 }
+.btn-warning{
+
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
 
 
 
@@ -111,7 +120,8 @@ a {
   position: absolute;
   top: 50%;
   width: 70%;
-  left: 7%;
+  left: 8%;
+
 }
 
 .sumText {
@@ -129,8 +139,8 @@ a {
 .rBottom {
   background-color: white;
   position: absolute;
-  top: 80%;
-  height: 19%;
+  top: 82%;
+  height: 17%;
   width: 100%;
 }
 
@@ -186,6 +196,7 @@ label {
 hr {
   margin: 0.1%;
 }
+
 
 .number {
   margin-right: 3%;
@@ -273,6 +284,10 @@ p {
   font-size: 25px;
   margin-top: 4%;
 }
+.col-sm-6 col-md-4{
+  min-width: 250px;
+  width:250px;
+}
 
 @media (max-height: 400px) {
   .bottomLabel {
@@ -287,12 +302,37 @@ p {
   }
 }
 
+@media (max-width: 1200px){
+  .btn-warning {
+    float: left;
+    margin: 0.5%;
+    margin-top: 0.2%;
+
+  }
+  .pizza-card{
+    width:250px;
+    height:500px;
+  }
+  .pizIm{
+    width: 210px;
+  }
+
+}
 @media (max-width: 800px) {
   .topPanel {
     font-size: 15px; //Розмір для екранів менше 800px
     height: 70px;
     min-height: 70px;
-
+  //  width:75%;
+  }
+  .btn-warning {
+    float: left;
+    margin: 0.5%;
+    margin-top: 0.2%;
+   // margin-left: 50%;
+  }
+  .pizza-card{
+    width:250px;
   }
 
   .topLabel {
@@ -300,6 +340,7 @@ p {
     width: auto;
     min-width: inherit;
   }
+
 
   .bottomLabel {
     font-size: 15px;
@@ -316,25 +357,25 @@ p {
   position: relative;
 }
 .label-danger{
-  font-size: large;
+  font-size: 25px;
   position: absolute;
   top:-10px;
-  left:80%;
+  left:35%;
   z-index: 1;
   display: inline-block;
 }
 .label-success{
-  font-size: large;
+  font-size: 25px;
   position: absolute;
   top:-10px;
-  left:65%;
+  left:30%;
   z-index: 1;
   display: inline-block;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .topPanel {
-    font-size: 10px; //Розмір для екранів менше 400px
+    //font-size: 10px; //Розмір для екранів менше 400px
     height: 50px;
     min-height: 50px;
   }
@@ -354,7 +395,11 @@ p {
   .freeShipping {
     display: none;
   }
+  .btn-warning {
+    padding:1px;
+  }
 }
+
 
 @button-color: red;
 @button-size: 24px;
@@ -362,7 +407,12 @@ p {
 button {
   float: right;
   margin: 0.5%;
-  margin-top: 3%;
+  margin-top: 0.2%;
+  margin-left: 50%;
+}
+.pizza{
+  float: left;
+
 }
 
 .right-panel {
@@ -379,4 +429,7 @@ button {
 
 .container {
   position: relative;
+  max-width: 1300px;
+
+
 }
