@@ -32,7 +32,21 @@ function addToCart(pizza, size) {
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
     //TODO: треба зробити
+    var i = 0;
+    var Copy = [];
+    for (i = 0; i < Cart.length; i++) {
+        if (Cart[i].pizza.title == cart_item.pizza.title
+            && Cart[i].size == cart_item.size) {
+            continue;
+        } else {
+            Copy[i] = Cart[i]
+        }
+        ;
+        console.log("current_It", Cart[i].pizza.title);
+        console.log("Cart_It", cart_item.pizza.title)
+    }
 
+    Cart = Copy;
     //Після видалення оновити відображення
     updateCart();
 }
@@ -60,15 +74,46 @@ function updateCart() {
     //Онволення однієї піци
     function showOnePizzaInCart(cart_item) {
         var html_code = Templates.PizzaCart_OneItem(cart_item);
-
+        var $sum = $(".summ")
+        var $summa = $sum.text();
         var $node = $(html_code);
 
-        $node.find(".plus").click(function(){
+        $node.find(".plus").click(function () {
             //Збільшуємо кількість замовлених піц
-            cart_item.quantity += 1;
+            cart_item.quantity++;
+            // $summa+=cart_item.price;
+            // $sum.text($summa);
+            //Оновлюємо відображення
+            updateCart();
+        });
+
+        $node.find(".minus").click(function () {
+            //Збільшуємо кількість замовлених піц
+            if (cart_item.quantity === 1) {
+                var $inCart = $(".inCart");
+                var $number = $inCart.text();
+                removeFromCart(cart_item);
+                $number--;
+                $inCart.text($number);
+            }
+            if (cart_item.quantity > 1) {
+                cart_item.quantity--;
+            }
+
 
             //Оновлюємо відображення
             updateCart();
+        });
+
+
+        $node.find(".cross").click(function () {
+            var $inCart = $(".inCart");
+            var $number = $inCart.text();
+            removeFromCart(cart_item);
+            $number--;
+            $inCart.text($number);
+            $summa-=cart_item.small_size.price;
+            $sum.text($summa);
         });
 
         $cart.append($node);
