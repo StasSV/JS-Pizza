@@ -8,8 +8,10 @@ var PizzaSize = {
     Big: "big_size",
     Small: "small_size"
 };
+var Storage = require('../storage');
 
-//Змінна в якій зберігаються перелік піц в кошику
+
+// //Змінна в якій зберігаються перелік піц в кошику
 var Cart = [];
 
 //HTML едемент куди будуть додаватися піци
@@ -19,14 +21,29 @@ function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
 
     //Приклад реалізації, можна робити будь-яким іншим способом
-    Cart.push({
-        pizza: pizza,
-        size: size,
-        quantity: 1
-    });
+    var i = 0;
+    var k =0;
+    for (i = 0; i < Cart.length; i++) {
+        if (Cart[i].pizza.title == pizza.title
+            && Cart[i].size == size) {
+            Cart[i].quantity++;
+            k++;
+        }
+    }
+    if(k==0) {
+        Cart.push({
+            pizza: pizza,
+            size: size,
+            quantity: 1
+        });
+    }
+    Storage.set("cart", Cart);
+    updateCart();
+
 
     //Оновити вміст кошика на сторінці
-    updateCart();
+
+
 }
 
 function removeFromCart(cart_item) {
@@ -39,7 +56,7 @@ function removeFromCart(cart_item) {
             && Cart[i].size == cart_item.size) {
             continue;
         } else {
-            Copy[i] = Cart[i]
+            Copy.push(Cart[i]);
         }
         ;
         console.log("current_It", Cart[i].pizza.title);
@@ -48,14 +65,23 @@ function removeFromCart(cart_item) {
 
     Cart = Copy;
     //Після видалення оновити відображення
+    Storage.set("cart", Cart);
     updateCart();
+
+
 }
+
 
 function initialiseCart() {
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
     //TODO: ...
 
+//get
+    var saved_orders = Storage.get('cart');
+    if (saved_orders) {
+        Cart = saved_orders;
+    }
     updateCart();
 }
 
@@ -64,34 +90,56 @@ function getPizzaInCart() {
     return Cart;
 }
 
+
 function updateCart() {
     //Функція викликається при зміні вмісту кошика
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
 
     //Очищаємо старі піци в кошику
     $cart.html("");
+    localStorage.removeItem('Cart');
 
     //Онволення однієї піци
     function showOnePizzaInCart(cart_item) {
         var html_code = Templates.PizzaCart_OneItem(cart_item);
         var $sum = $(".summ")
-        var $summa = $sum.text();
+        var $summa = parseInt($sum.text());
         var $node = $(html_code);
 
-        $node.find(".plus").click(function () {
+        function plus(cart_item) {
+
             //Збільшуємо кількість замовлених піц
             cart_item.quantity++;
-            // $summa+=cart_item.price;
-            // $sum.text($summa);
+            console.log("cart ", cart_item);
+            if (cart_item.pizza.big_size)
+                $summa += cart_item.pizza.big_size.price;
+            if (cart_item.pizza.small_size)
+                $summa += cart_item.pizza.small_size.price;
+            if ($summa > 0) {
+                $sum.text($summa);
+            } else {
+                $summa = 0;
+                $sum.text($summa);
+            }
             //Оновлюємо відображення
+            Storage.set("cart", Cart);
             updateCart();
-        });
+        }
 
-        $node.find(".minus").click(function () {
-            //Збільшуємо кількість замовлених піц
+        function minus(cart_item) {
             if (cart_item.quantity === 1) {
                 var $inCart = $(".inCart");
                 var $number = $inCart.text();
+                if (cart_item.pizza.big_size)
+                    $summa -= cart_item.pizza.big_size.price;
+                if (cart_item.pizza.small_size)
+                    $summa -= cart_item.pizza.small_size.price;
+                if ($summa > 0) {
+                    $sum.text($summa);
+                } else {
+                    $summa = 0;
+                    $sum.text($summa);
+                }
                 removeFromCart(cart_item);
                 $number--;
                 $inCart.text($number);
@@ -102,25 +150,73 @@ function updateCart() {
 
 
             //Оновлюємо відображення
+            Storage.set("cart", Cart);
             updateCart();
+
+        }
+
+        function cross(cart_item) {
+            var $inCart = $(".inCart");
+            var $number = $inCart.text();
+            console.log("NODE  ", $node);
+            if (cart_item.pizza.big_size)
+                $summa -= cart_item.pizza.big_size.price;
+            if (cart_item.pizza.small_size)
+                $summa -= cart_item.pizza.small_size.price;
+            if ($summa > 0) {
+                $sum.text($summa);
+            } else {
+                $summa = 0;
+                $sum.text($summa);
+            }
+            Storage.set("cart", Cart);
+            removeFromCart(cart_item);
+            $number--;
+            $inCart.text($number);
+
+        }
+
+        function clear() {
+            for (i = 0; i < Cart.length; i++) {
+                Cart.pop();
+            }
+            updateCart();
+            var $sum = $(".summ")
+            var $summa = parseInt($sum.text());
+            var $inCart = $(".inCart");
+            var $number = $inCart.text();
+            $summa = 0;
+            $sum.text($summa);
+            $number = 0;
+            $inCart.text($number);
+            Storage.set("cart", Cart);
+        }
+
+        $node.find(".plus").click(function () {
+            plus(cart_item);
+        });
+
+
+        $node.find(".minus").click(function () {
+            minus(cart_item);
         });
 
 
         $node.find(".cross").click(function () {
-            var $inCart = $(".inCart");
-            var $number = $inCart.text();
-            removeFromCart(cart_item);
-            $number--;
-            $inCart.text($number);
-            $summa-=cart_item.small_size.price;
-            $sum.text($summa);
+            cross(cart_item);
+        });
+
+        var $rnode = $(".rightPanel");
+        $rnode.find(".clear").click(function () {
+            clear();
         });
 
         $cart.append($node);
+
     }
 
     Cart.forEach(showOnePizzaInCart);
-
+    localStorage.setItem('Cart', Cart);
 }
 
 exports.removeFromCart = removeFromCart;
