@@ -1,0 +1,126 @@
+<% include header.ejs %>
+
+<div class="order">
+
+
+    <div class="forms">
+
+        <h2 class="contacts">1.Контактні дані</h2>
+
+        <div class="col-sm-8">
+
+            <div class="left">
+
+                <div class="form-group name-group has-success ">
+                    <div class="col-sm-6">
+                        <label class="names">
+                            Ім'я
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="Text" id="user_name" class="form-control" placeholder="Type your name here" oninput="readName()">
+                    </div>
+                    <span class="help-block">Enter ONLY your name & surname</span>
+                </div>
+
+                <div class="form-group name-group has-success">
+                    <div class="col-sm-6">
+                        <label class="names">
+                            Телефон
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="Text" id="user_phone" class="form-control" placeholder="+38(000)0000000" oninput="readPhone()">
+                    </div>
+
+
+
+                    <span class="help-block">Enter your phone number </span>
+                </div>
+
+                <div class="form-group phone-group has-success">
+                    <div class="col-sm-6">
+                        <label class="names">
+                            Адреса
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="Text" id="user_adress" class="form-control" placeholder="Your Adress" oninput="readAdress()"></div>
+                    <span class="help-block">Enter your phone number </span>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="right">
+                <div class="infoOrder">
+                    <div class="infoHead">
+                        Інформація про замовлення
+                    </div>
+                    <div class="time">
+                        <b>
+                            Приблизний час доставки:
+                        </b>
+                        <span class="timeStatus">
+                            невідомий
+                        </span>
+                    </div>
+
+                    <div class="adress">
+                        <b>
+                            Адреса доставки:
+                        </b>
+                        <span class="adressStatus">
+                            невідома
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <button type="next" class="btn btn-warning"><b>Далі ></b></button>
+
+
+    </div>
+
+    <div class="rightPanel ">
+        <div class="rTop">
+        <span class="order">
+            Замовлення
+        </span>
+
+            <label class="label label-warning inCart">
+                0
+            </label>
+            <br>
+            <span class="clear">Очистити замовлення</span>
+        </div>
+
+        <div id="cart" class="rContainer">
+
+
+        </div>
+
+        <div class="rBottom">
+            <div class="sumText">
+                <b>Сума замовлення</b>
+            </div>
+            <div class="sum">
+                <b>
+                    <span class="summ">0</span> грн.</b>
+            </div>
+            <div class="rb">
+                <div class="col-sm-12 col-md-12">
+                    <button type="accept" class="btn btn-lg btn-warning">Замовити</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<% include footer.ejs %>

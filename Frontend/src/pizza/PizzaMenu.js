@@ -13,6 +13,12 @@ var $number = $inCart.text();
 var $sum = $(".summ");
 var $summa = parseInt($sum.text());
 
+var content = require('../API');
+content.getPizzaList(function(exception, PizzaList){
+    Pizza_List=PizzaList;
+    initialiseMenu();
+});
+
 function showPizzaList(list) {
     //Очищаємо старі піци в кошику
     $pizza_list.html("");
@@ -90,6 +96,34 @@ function filterPizza(filter) {
     }
 
 }
+
+//
+// // Compare the textbox's current and last value.  Report a change to the console.
+// function watchTextbox() {
+//     var txtInput = $('#txtInput');
+//     var lastValue = txtInput.data('lastValue');
+//     var currentValue = txtInput.val();
+//     if (lastValue != currentValue) {
+//         console.log('Value changed from ' + lastValue + ' to ' + currentValue);
+//         txtInput.data('lastValue', currentValue);
+//     }
+// }
+//
+// // Record the initial value of the textbox.
+// $('#txtInput').data('lastValue', $('#txtInput').val());
+//
+// // Bind to the keypress and user-defined set event.
+// $('#txtInput').bind('keypress set', null, watchTextbox);
+//
+// // Example of JS code triggering the user event
+// $('#btnSetText').click(function (ev) {
+//     $('#txtInput').val('abc def').trigger('set');
+// });
+// If you don't have control over that code, you could use setInterval() to 'watch' the textbox for changes:
+//
+// // Check the textbox every 100 milliseconds.  This seems to be pretty responsive.
+// setInterval(watchTextbox, 100);
+
 
 function initialiseMenu() {
     //Показуємо усі піци
