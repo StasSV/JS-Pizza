@@ -10,6 +10,6 @@ exports.mainPage = function(req, res) {
 exports.orderPage = function(req, res) {
     //TODO: implement
     res.render('common/formPage', {
-        pageTitle: 'Вибір Піци'
+        pageTitle: 'Замовлення Піци'
     });
 };

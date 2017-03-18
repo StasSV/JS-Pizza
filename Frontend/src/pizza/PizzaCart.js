@@ -38,6 +38,7 @@ function addToCart(pizza, size) {
         });
     }
     Storage.set("cart", Cart);
+
     updateCart();
 
 
@@ -66,6 +67,7 @@ function removeFromCart(cart_item) {
     Cart = Copy;
     //Після видалення оновити відображення
     Storage.set("cart", Cart);
+    Storage.set("quantity", cart_item.quantity);
     updateCart();
 
 
@@ -82,6 +84,10 @@ function initialiseCart() {
     if (saved_orders) {
         Cart = saved_orders;
     }
+    // var saved_amount = Storage.get('quantity');
+    // if (saved_amount) {
+    //     Cart.cart_item = saved_amount;
+    // }
     updateCart();
 }
 
@@ -123,6 +129,8 @@ function updateCart() {
             }
             //Оновлюємо відображення
             Storage.set("cart", Cart);
+            Storage.set("quantity", cart_item.quantity);
+
             updateCart();
         }
 
@@ -151,6 +159,7 @@ function updateCart() {
 
             //Оновлюємо відображення
             Storage.set("cart", Cart);
+            Storage.set("quantity", cart_item.quantity);
             updateCart();
 
         }
@@ -170,6 +179,7 @@ function updateCart() {
                 $sum.text($summa);
             }
             Storage.set("cart", Cart);
+            Storage.set("quantity", cart_item.quantity);
             removeFromCart(cart_item);
             $number--;
             $inCart.text($number);
@@ -190,6 +200,7 @@ function updateCart() {
             $number = 0;
             $inCart.text($number);
             Storage.set("cart", Cart);
+            Storage.set("quantity", cart_item.quantity);
         }
 
         $node.find(".plus").click(function () {

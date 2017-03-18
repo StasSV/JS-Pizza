@@ -5,40 +5,27 @@ var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+// var formPage = require('./common/formPage');
+// var $node = $(formPage);
+// $node.find("next")
+// var pages = require('./pages');
+//
+// //sending info to the server after pressing the button
+//
+// var html_code = pages.orderPage();
+// var $node = $(html_code);
+//
+// $node.find(".next").click(function () {
+//     var $name=$node.find("#user_name").text();
+//     var $phone=$node.find("#user_phone").text();
+//     var $adress=$node.find("#user_adress").text();
+//     var content = require('../API');
+//     content.createOrder($name, function(err,order_info, callback){});
+//     content.createOrder($phone, function(err,order_info, callback){});
+//     content.createOrder($adress, function(err,order_info, callback){});
+//     console.log("success");
+// });
 
-//sending info to the server after pressing the button
-
-var html_code = pages.orderPage();
-var $node = $(html_code);
-
-$node.find(".next").click(function () {
-    var $name=$node.find("#user_name").text();
-    var $phone=$node.find("#user_phone").text();
-    var $adress=$node.find("#user_adress").text();
-    var content = require('../API');
-    content.createOrder($name);
-    content.createOrder($phone);
-    content.createOrder($adress);
-    console.log("success");
-});
-
-
-function readName(){
-    // var $name=$node.find("#user_name").text();
-
-}
-function readPhone(){
-    if((document.getElementById('#user_name').value.indexOf("+"))>="0"||
-        (document.getElementById('#user_name').value.indexOf("0"))>="0")
-    {
-        $node.find("#user_name").style.color="green";
-    }else{
-        $node.find("#user_name").style.color="red";
-    }
-}
-function readAdress(){
-
-}
 
 
 function configureEndpoints(app) {

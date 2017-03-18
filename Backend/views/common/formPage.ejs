@@ -11,7 +11,7 @@
 
             <div class="left">
 
-                <div class="form-group name-group has-success ">
+                <div class="form-group name-group">
                     <div class="col-sm-6">
                         <label class="names">
                             Ім'я
@@ -23,14 +23,14 @@
                     <span class="help-block">Enter ONLY your name & surname</span>
                 </div>
 
-                <div class="form-group name-group has-success">
+                <div class="form-group name-group">
                     <div class="col-sm-6">
                         <label class="names">
                             Телефон
                         </label>
                     </div>
                     <div class="col-sm-6">
-                        <input type="Text" id="user_phone" class="form-control" placeholder="+38(000)0000000" oninput="readPhone()">
+                        <input type="Text" id="user_phone" class="form-control" placeholder="+380000000000" oninput="readPhone()">
                     </div>
 
 
@@ -38,7 +38,7 @@
                     <span class="help-block">Enter your phone number </span>
                 </div>
 
-                <div class="form-group phone-group has-success">
+                <div class="form-group phone-group">
                     <div class="col-sm-6">
                         <label class="names">
                             Адреса
@@ -52,6 +52,68 @@
 
             </div>
         </div>
+
+        <script> // THIS IS FOR CHECKING VALIDATION OF INPUT AREAS
+            function readName() {
+
+                var name = document.getElementById("user_name");
+                var x = name.value;
+                var regex=/^[0-9]+$/;
+                if (x.charAt(x.length-1).match(regex)){
+                    name.style.backgroundColor="#ffc1c3";
+                    name.style.color = "red";
+                }else {
+                    name.style.backgroundColor = "#b8ffb7";
+                    name.style.color = "green ";
+                }
+                if(x.length==0){
+                    name.style.backgroundColor="#ffc1c3";
+                    name.style.color= "red ";
+                }
+            }
+            var maxcount = 13;
+            function readPhone() {
+                var phone = document.getElementById("user_phone");
+                var x = phone.value;
+                var regex=/^[0-9]+$/;
+                if (!x.charAt(x.length-1).match(regex)){
+                    phone.style.backgroundColor="#ffc1c3";
+                    phone.style.color= "red ";
+                }else{
+                    phone.style.backgroundColor="#b8ffb7";
+                    phone.style.color = "green";
+                }
+                if(x.length!==maxcount) {
+                    phone.style.backgroundColor = "#ffc1c3";
+                    phone.style.color = "red ";
+                }
+            }
+            function readAdress() {
+                var adress = document.getElementById("user_adress");
+                var x = adress.value;
+                if(x.length==0){
+                    adress.style.backgroundColor="#ffc1c3";
+                    adress.style.color= "red ";
+                }else{
+                    adress.style.backgroundColor="#b8ffb7";
+                    adress.style.color = "green";
+                }
+            }
+            function sendData(){
+                var $name=document.getElementById("user_name").value;
+                var $phone = document.getElementById("user_phone").value;
+                var $adress = document.getElementById("user_adress").value;
+                document.getElementById("adressStatus").value = $adress;
+                var content = require('../../API');
+                content.createOrder($name, function (err, order_info, callback) {
+                });
+                content.createOrder($phone, function (err, order_info, callback) {
+                });
+                content.createOrder($adress, function (err, order_info, callback) {
+                });
+                console.log("success");
+            }
+        </script>
 
         <div class="col-sm-4">
             <div class="right">
@@ -82,7 +144,7 @@
             </div>
         </div>
 
-        <button type="next" class="btn btn-warning"><b>Далі ></b></button>
+        <button type="next" class="btn btn-warning" onclick="sendData()" ><b>Далі ></b></button>
 
 
     </div>
@@ -122,5 +184,6 @@
 
     </div>
 </div>
+
 
 <% include footer.ejs %>

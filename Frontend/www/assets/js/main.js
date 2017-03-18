@@ -291,6 +291,7 @@ function addToCart(pizza, size) {
         });
     }
     Storage.set("cart", Cart);
+
     updateCart();
 
 
@@ -319,6 +320,7 @@ function removeFromCart(cart_item) {
     Cart = Copy;
     //Після видалення оновити відображення
     Storage.set("cart", Cart);
+    Storage.set("quantity", cart_item.quantity);
     updateCart();
 
 
@@ -335,6 +337,10 @@ function initialiseCart() {
     if (saved_orders) {
         Cart = saved_orders;
     }
+    // var saved_amount = Storage.get('quantity');
+    // if (saved_amount) {
+    //     Cart.cart_item = saved_amount;
+    // }
     updateCart();
 }
 
@@ -376,6 +382,8 @@ function updateCart() {
             }
             //Оновлюємо відображення
             Storage.set("cart", Cart);
+            Storage.set("quantity", cart_item.quantity);
+
             updateCart();
         }
 
@@ -404,6 +412,7 @@ function updateCart() {
 
             //Оновлюємо відображення
             Storage.set("cart", Cart);
+            Storage.set("quantity", cart_item.quantity);
             updateCart();
 
         }
@@ -423,6 +432,7 @@ function updateCart() {
                 $sum.text($summa);
             }
             Storage.set("cart", Cart);
+            Storage.set("quantity", cart_item.quantity);
             removeFromCart(cart_item);
             $number--;
             $inCart.text($number);
@@ -443,6 +453,7 @@ function updateCart() {
             $number = 0;
             $inCart.text($number);
             Storage.set("cart", Cart);
+            Storage.set("quantity", cart_item.quantity);
         }
 
         $node.find(".plus").click(function () {
@@ -578,33 +589,6 @@ function filterPizza(filter) {
     }
 
 }
-
-//
-// // Compare the textbox's current and last value.  Report a change to the console.
-// function watchTextbox() {
-//     var txtInput = $('#txtInput');
-//     var lastValue = txtInput.data('lastValue');
-//     var currentValue = txtInput.val();
-//     if (lastValue != currentValue) {
-//         console.log('Value changed from ' + lastValue + ' to ' + currentValue);
-//         txtInput.data('lastValue', currentValue);
-//     }
-// }
-//
-// // Record the initial value of the textbox.
-// $('#txtInput').data('lastValue', $('#txtInput').val());
-//
-// // Bind to the keypress and user-defined set event.
-// $('#txtInput').bind('keypress set', null, watchTextbox);
-//
-// // Example of JS code triggering the user event
-// $('#btnSetText').click(function (ev) {
-//     $('#txtInput').val('abc def').trigger('set');
-// });
-// If you don't have control over that code, you could use setInterval() to 'watch' the textbox for changes:
-//
-// // Check the textbox every 100 milliseconds.  This seems to be pretty responsive.
-// setInterval(watchTextbox, 100);
 
 
 function initialiseMenu() {
