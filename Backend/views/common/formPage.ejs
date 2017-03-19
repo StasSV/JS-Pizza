@@ -1,5 +1,4 @@
 <% include header.ejs %>
-
 <div class="order">
 
 
@@ -150,7 +149,6 @@
 
 
     </div>
-
     <div class="rightPanel ">
         <div class="rTop">
         <span class="order">
@@ -187,63 +185,154 @@
     </div>
 </div>
 
-
-<!--<div id="map" style="width:700px;height:400px;background:yellow;-->
-<!--margin-left:auto;margin-right:auto;margin-top: 35%"></div>-->
-
-
-<!--<script>-->
-<!--function myMap() {-->
-<!--//Тут починаємо працювати з картою-->
-<!--var mapProp = {-->
-<!--center: new google.maps.LatLng(50.464379,30.519131),-->
-<!--zoom: 11-->
-<!--};-->
-<!--var html_element = document.getElementById("googleMap");-->
-<!--var map = new google.maps.Map(html_element, mapProp);-->
-<!--//Карта створена і показана-->
-<!--}-->
-<!--//Коли сторінка завантажилась-->
-<!--google.maps.event.addDomListener(window, 'load', initialize);-->
-<!--</script>-->
-<!--<div id="map">-->
-    <!--<iframe width="600" height="450" frameborder="0" style="border:0"-->
-            <!--src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJ05GAS4a21EARYeLRXmjSoWQ&destination=place_id:ChIJBUVa4U7P1EAR_kYBF9IxSXY&key=AIzaSyD2biXp0mMOXjOqzgNKhREM-H4OG-2rc-g"-->
-            <!--allowfullscreen></iframe>-->
-
-    <!--&lt;!&ndash;<script type="text/javascript"&ndash;&gt;-->
-    <!--&lt;!&ndash;src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD2biXp0mMOXjOqzgNKhREM-H4OG-2rc-g">&ndash;&gt;-->
-    <!--&lt;!&ndash;</script>&ndash;&gt;-->
-
-
-    <!--&lt;!&ndash;<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2biXp0mMOXjOqzgNKhREM-H4OG-2rc-g"></script>&ndash;&gt;-->
-
-
-    <!--&lt;!&ndash;var map=new google.maps.Map(document.getElementById("map"), mapOptions);&ndash;&gt;-->
-<!--</div>-->
-
-
 <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2biXp0mMOXjOqzgNKhREM-H4OG-2rc-g">
 </script>
+<script src="http://static.liqpay.com/libjs/checkout.js" async></script>
 
-<div id="mapjs"style="width:700px;height:400px;background:yellow;
-margin-left:auto;margin-right:auto;margin-top: 35%"><p>map is here</p>
-<button id="bMap" onclick="initMap()"></button>
+<!-- місце для віджету -->
+<!--<div id="liqpay" style="width:800px;height:400px;background:yellow;-->
+<!--margin-left:10%;margin-right:auto;margin-top: 35%">-->
+    <!--<p>-->
+        <!--liqpay form is here-->
+    <!--</p>-->
+    <!--<button id="bLiq" onclick="liqPayInit()"></button>-->
+<!--</div>-->
+<!-- піключаємо скрипт -->
+<!--<script-->
+<!--src="static.liqpay.com/libjs/checkout.js">-->
+<!--</script>-->
+
+
+
+
+
+<script>
+    public_key = 'i8990856747';
+    private_key = 'u5hKYg2IegXGX78oPvYs62RkbKt5CXRYZMYyOfK1';
+
+    var LiqPay = require('liqpay');
+    var liqpay = new LiqPay(public_key, private_key);
+    var html = liqpay.cnb_form({
+        'public_key'     : public_key,
+        'action'         : 'pay',
+        'amount'         : '1',
+        'currency'       : 'USD',
+        'description'    : 'description text',
+        'order_id'       : 'order_id_1',
+        'version'        : '3',
+        'sandbox'        : '1'
+    });
+    data_test_value="eyAidmVyc2lvbiIgOiAzLCAicHVibGljX2tleSIgOiAieW91cl9wdWJsaWNfa2V5IiwgImFjdGlv" +
+        "biIgOiAicGF5IiwgImFtb3VudCIgOiAxLCAiY3VycmVuY3kiIDogIlVTRCIsICJkZXNjcmlwdGlv" +
+        "biIgOiAiZGVzY3JpcHRpb24gdGV4dCIsICJvcmRlcl9pZCIgOiAib3JkZXJfaWRfMSIgfQ=="
+
+    signature_test_value="QvJD5u9Fg55PCx/Hdz6lzWtYwcI=";
+
+    function base64(str) {
+        return new Buffer(str).toString('base64');
+    };
+
+    function sha1(str) {
+        var crypto = require('crypto-js');
+        var sha1 = crypto.createHash('sha1');
+        return sha1.update(str);
+        //return sha1.digest('base64');
+    };
+
+
+
+    function prepare_data(){
+        alert('prepare');
+        var public_key = 'i8990856747';
+        var private_key = 'u5hKYg2IegXGX78oPvYs62RkbKt5CXRYZMYyOfK1';
+        var data_json = {
+            'public_key'     : 'i8990856747',
+            'action'         : 'pay',
+            'amount'         : '1',
+            'currency'       : 'USD',
+            'description'    : 'description text',
+            'order_id'       : 'order_id_1',
+            'version'        : '3',
+            'sandbox'        : '1'
+        }
+        var data = window.btoa(JSON.stringify(data_json));
+        document.getElementById("card_form_data").value=data;
+        //var signature =  window.btoa(sha1( private_key+data+private_key));
+        var signature =  window.btoa(sha1( private_key));
+
+        alert(signature);
+        document.getElementById("card_form_signature").value=signature;
+    };
+
+</script>
+</head>
+
+<body>
+<form id="card_form" style="margin-top: 35%" method="POST" onsubmit="prepare_data()" action="https://www.liqpay.com/api/3/checkout"
+      accept-charset="utf-8">
+    <input type="hidden" id="card_form_data" name="data" value=card_form_data/>
+    <input type="hidden" id="card_form_signature" name="signature" value=signature_test_value/>
+
+    <span name="helper_color" style="text-align: center;color: rgb(132, 146, 166); margin: 0.5%"><span >Card number</span>
+        <input el="Card" placeholder="●●●●&nbsp;●●●●&nbsp;●●●●&nbsp;●●●●" autocomplete="off" style="text-align: center; width: 289px; color: rgb(24, 28, 32);">
+    </span>
+
+    <span name="helper_color" style="text-align: center;color: rgb(132, 146, 166);margin: 0.5%">validity
+        <input el="MMYY" placeholder="MM/YY" type="tel" class="input input__validity" role="input" maxlength="7" autocomplete="off" style="text-align: center; color: rgb(24, 28, 32);">
+    </span>
+
+    <span name="helper_color" style="text-align: center; color: rgb(132, 146, 166);margin: 0.5%" >CVV
+        <input el="CardCvv" pattern="[0-9]*" placeholder="●●●" type="password" onkeyup="this.value=this.value.replace(/[^0-9.]/ig,'')" maxlength="3" autocomplete="off" style="color: rgb(24, 28, 32);">
+
+    </span>
+
+    <div name="helper_color" style="text-align: center; color: rgb(132, 146, 166);" >
+        <input type="image"
+               src="http://static.liqpay.com/buttons/p1ru.radius.png"/>
+    </div>
+
+</form>
+
+<div id="liqpay_checkout">
 </div>
 <script>
+    window.LiqPayCheckoutCallback = function() {
+       // alert('LiqPayCheckout.init');
+
+        LiqPayCheckout.init({
+            data: "eyAidmVyc2lvbiIgOiAzLCAicHVibGljX2tleSIgOiAieW91cl9wdWJsaWNfa2V5IiwgImFjdGlv" +
+            "biIgOiAicGF5IiwgImFtb3VudCIgOiAxLCAiY3VycmVuY3kiIDogIlVTRCIsICJkZXNjcmlwdGlv" +
+            "biIgOiAiZGVzY3JpcHRpb24gdGV4dCIsICJvcmRlcl9pZCIgOiAib3JkZXJfaWRfMSIgfQ==",
+            signature: "QvJD5u9Fg55PCx/Hdz6lzWtYwcI=",
+            embedTo: "#liqpay_checkout",
+            mode: "embed" // embed || popup
+        }).on("liqpay.callback", function(data){
+            console.log(data.status);
+            console.log(data);
+        }).on("liqpay.ready", function(data){
+            // ready
+        }).on("liqpay.close", function(data){
+            // close
+        });
+    };
+</script>
+<!--<script src="http://static.liqpay.com/libjs/checkout.js" async>-->
+<!--</script>-->
+
+
+<div id="mapjs" style="width:800px;height:400px;background:gray;
+margin-left:10%;margin-right:auto; margin-bottom: 10%"><p>Wait a minute & the map will be here</p>
+</div>
+
+<script>
     function initMap() {
-        var chicago = {lat: 41.85, lng: -87.65};
-        var indianapolis = {lat: 39.79, lng: -86.14};
-        if(document.getElementById('mapjs')){
-            alert("ok");
-        } else{
-            alert("notOk");
-        }
+        var pizzaPlace = {lat: 50.464379, lng: 30.519131};
+        var indianapolis = {lat: 50.424379, lng: 30.599131};
 
         var map = new google.maps.Map(document.getElementById('mapjs'), {
-            center: new google.maps.LatLng(50.464379,30.519131),
-            zoom: 11
+            center: pizzaPlace,
+            zoom: 16
         });
 
         var directionsDisplay = new google.maps.DirectionsRenderer({
@@ -253,23 +342,44 @@ margin-left:auto;margin-right:auto;margin-top: 35%"><p>map is here</p>
         // Set destination, origin and travel mode.
         var request = {
             destination: indianapolis,
-            origin: chicago,
+            origin: pizzaPlace,
             travelMode: 'DRIVING'
         };
 
         // Pass the directions request to the directions service.
         var directionsService = new google.maps.DirectionsService();
-        directionsService.route(request, function(response, status) {
+        directionsService.route(request, function (response, status) {
             if (status == 'OK') {
                 // Display the route on the map.
                 directionsDisplay.setDirections(response);
             }
         });
+
+//
+//        google.maps.event.addListener(map, 'click',function(me){
+//            var coordinates = me.latLng;
+//            geocodeLatLng(coordinates, function(err, adress){
+//                if(!err) {
+////Дізналися адресу
+//                    console.log(adress);
+//                } else {
+//                    console.log("Немає адреси")
+//                }
+//            })
+//        });
+
+
+//        var point = new google.maps.LatLng(50.464379,30.519131);
+//        var marker = new google.maps.Marker({
+//            position: point,
+//            map: map,
+//            icon: "./map-icon.png"
+//        });
+//        google.maps.event.addDomListener(window, 'load', initMap);
     }
+    google.maps.event.addDomListener(window, 'load', initMap);
 
 </script>
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"-->
-        <!--async defer></script>-->
 
 
 <% include footer.ejs %>
