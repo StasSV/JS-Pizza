@@ -332,82 +332,75 @@ margin-left:10%;margin-right:auto; margin-bottom: 10%"><p>....OOPS SOMETHING WRO
 </div>
 
 <script>
-    function initMap() {
-        var markers = [];
-        var pizzaPlace = {lat: 50.464379, lng: 30.519131};
-        var kmz = {lat: 50.466121, lng: 30.523392};
 
-        var map = new google.maps.Map(document.getElementById('mapjs'), {
+
+    function initMap() {
+        var markerList = [];
+        var pizzaPlace = {lat: 50.464379, lng: 30.519131};
+        var v_dest = {lat: 50.466121, lng: 30.523392};
+        var vmap = new google.maps.Map(document.getElementById('mapjs'), {
             center: pizzaPlace,
             zoom: 16
         });
-
+        var directionsService= new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer({
-            map: map
+            map: vmap,
+            suppressMarkers: true
         });
 
-        var request = {
-            destination: kmz,
-            origin: pizzaPlace,
-            travelMode: 'DRIVING'
-        };
-       //     alert(directionsService.getDuration ().seconds + " seconds") ;
-
-
-        // Pass the directions request to the directions service.
-        var directionsService = new google.maps.DirectionsService();
-        directionsService.route(request, function (response, status) {
-            if (status == 'OK') {
-                directionsDisplay.setDirections(response);
-            }
-        });
+        calcRoute(directionsService,directionsDisplay,vmap, markerList, pizzaPlace, v_dest);
         // This event listener will call addMarker() when the map is clicked.
-        map.addListener('click', function (event) {
+        vmap.addListener('click', function (event) {
             // alert('clickDone');
-            addMarker(event.latLng);
-            calcRoute();
-        });
-        function calcRoute() {
-            var start = pizzaPlace;
-            var end = event.latLng.value;
-            var request = {
-                origin:start,
-                destination:end,
-                travelMode: DRIVING
-            };
-            directionsService.route(request, function(response, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                    directionsDisplay.setDirections(response);
-                }
-            });
-        }
-
-
-        var point = new google.maps.LatLng(50.464379, 30.519131);
-        var marker = new google.maps.Marker({
-            position: point,
-            map: map,
-            icon: "assets/images/map-icon.png"
-        });
-        var marker = new google.maps.Marker({
-            position: kmz,
-            map: map,
-            icon: "assets/images/home-icon.png"
+            v_dest = event.latLng;
+            markerList[0].setMap(null);
+            markerList[1].setMap(null);
+            markerList.length=0;
+            calcRoute(directionsService,directionsDisplay,vmap,markerList, pizzaPlace, v_dest);
         });
 
-        // Adds a marker to the map and push to the array.
-        function addMarker(location) {
-            // var point = new google.maps.LatLng(50.464379,30.519131);
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map,
-                icon: "assets/images/home-icon.png"
-            });
-        }
 
         // google.maps.event.addDomListener(window, 'load', initMap);
-    }
+
+    };
     google.maps.event.addDomListener(window, 'load', initMap);
+
+    function calcRoute(aDS,aDR,amap, amarkerList, astart, adest) {
+//        var end = event.latLng.value;
+
+        aDR.setMap(null);
+        var request = {
+            origin: astart,
+            destination: adest,
+            travelMode: 'DRIVING'
+        };
+        var response;
+
+        aDS.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                aDR.setDirections(response);
+                var vleg = response.routes[0].legs[0];
+                addMarker(amarkerList, vleg.start_location, amap, "assets/images/map-icon.png");
+                addMarker(amarkerList, vleg.end_location, amap);
+            }
+        });
+    //    directionsDisplay.suppressMarkers = false;
+        aDR.setMap(amap);
+    }
+    // Adds a marker to the map and push to the array.
+    function addMarker(amarkerList, alocation, amap, aicon) {
+        // var point = new google.maps.LatLng(50.464379,30.519131)
+        var vicon = "assets/images/home-icon.png";
+        if (aicon != null) {
+            vicon = aicon;
+        };
+        var marker = new google.maps.Marker({
+            position: alocation,
+            map: amap,
+            icon: vicon
+        });
+        amarkerList[amarkerList.length ] = marker;
+    }
 
 </script>
 
