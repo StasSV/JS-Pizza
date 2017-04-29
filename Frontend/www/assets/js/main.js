@@ -244,13 +244,34 @@ $(function(){
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
 
+    var API =require("./API");
+    $(".pay").click(function(){
+        API.createOrder({pizza: [], name: "Hello"}, function(err, result){
+            if(!err) {
+                LiqPayCheckout.init({
+                    data:result.data,
+                    signature: result.signature,
+                    embedTo: "#liqpay_checkout",
+                    mode: "embed" // embed || popup
+                }).on("liqpay.callback", function (data) {
+                    console.log(data.status);
+                    console.log(data);
+                }).on("liqpay.ready", function (data) {
+                    // ready
+                }).on("liqpay.close", function (data) {
+                    // close
+                });
+            }
+        })
 
+
+    })
 
 
 });
 
 
-},{"./Pizza_List":2,"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
+},{"./API":1,"./Pizza_List":2,"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
